@@ -8,7 +8,7 @@ pipeline
         {
             steps 
             {
-                git 'https://github.com/Diane-Mahoro1/ABC-project-.git'
+                git branch: 'main', url: 'https://github.com/Diane-Mahoro1/ABC-project-.git'
             }
         }
         stage('code compile'){
