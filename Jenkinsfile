@@ -18,11 +18,20 @@ pipeline
             }
 
         }
-        stage('Code packaging'){
+
+        stage('Test'){
+            steps
+            {
+                sh 'mvn test'
+            }
+        }
+        stage('build'){
             steps
             {
                 sh 'mvn package'
             }
         }
+
+
     }
 }
