@@ -31,7 +31,18 @@ pipeline
                 sh 'mvn package'
             }
         }
-
-
+        stage('push Docker Image'){
+            steps{
+                withDockerRegistry([credentialsID: "dockerhub", url:""])
+                {
+                    sh 'docker push jsachdev07/abc_tech:$BUILD_NUMBER'
+                }
+            }
+        }
+        stage('deploy as container'){
+            steps{
+                sh 'docker run -itd -P jsachdev07/abc_tech:$BUILD_NUMBER'
+            }
+        }
     }
 }
