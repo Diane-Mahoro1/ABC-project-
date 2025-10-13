@@ -1,3 +1,7 @@
-FROM tomcat:latest
-Copy abctechnologies.war /usr/local/tomcat/webapps
-CMD ["catalina.sh", "run"]
+# FROM tomcat:latest
+# Copy abctechnologies.war /usr/local/tomcat/webapps
+# CMD ["catalina.sh", "run"]
+
+FROM python:3.7-alpine 
+ENV PYTHONBUFFERED 1
+Copy ./requirements.txt

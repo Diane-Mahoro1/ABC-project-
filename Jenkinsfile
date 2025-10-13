@@ -31,17 +31,25 @@ pipeline
                 sh 'mvn package'
             }
         }
+
+        stage('Build Docker Image'){
+            steps{
+                sh 'cp /var/lib/jenkins/workspace/$JOB_NAME/target/abctechnologies.war/var/lib/jenkins/workspace/$JOB_NAME/abctechnologies.war'
+                sh 'docker build -t mahoro01/abc_tech:$BUILD_NUMBER .'
+            }
+
+        }
         stage('push Docker Image'){
             steps{
                 withDockerRegistry([credentialsID: "dockerhub", url:""])
                 {
-                    sh 'docker push jsachdev07/abc_tech:$BUILD_NUMBER'
+                    sh 'docker push mahoro01/abc_tech:$BUILD_NUMBER'
                 }
             }
         }
         stage('deploy as container'){
             steps{
-                sh 'docker run -itd -P jsachdev07/abc_tech:$BUILD_NUMBER'
+                sh 'docker run -itd -P mahoro01/abc_tech:$BUILD_NUMBER'
             }
         }
     }
